@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5911396808774534271}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9101068464356964911
 MeshFilter:
@@ -91,21 +91,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2827528919529473155}
-  serializedVersion: 4
+  serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -146,7 +135,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5911396808774534271}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6323566719705649866
 MeshFilter:
@@ -205,21 +194,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2842668207621702419}
-  serializedVersion: 4
+  serializedVersion: 2
   m_Mass: 1
   m_Drag: 1
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -238,7 +216,7 @@ ConfigurableJoint:
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  serializedVersion: 3
+  serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 1
   m_YMotion: 0
@@ -278,44 +256,38 @@ ConfigurableJoint:
   m_TargetPosition: {x: 0, y: 0, z: 0}
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
-    serializedVersion: 4
+    serializedVersion: 3
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.4028233e+38
-    useAcceleration: 0
   m_YDrive:
-    serializedVersion: 4
+    serializedVersion: 3
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.4028233e+38
-    useAcceleration: 0
   m_ZDrive:
-    serializedVersion: 4
+    serializedVersion: 3
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.4028233e+38
-    useAcceleration: 0
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_TargetAngularVelocity: {x: 0, y: 0, z: 0}
   m_RotationDriveMode: 0
   m_AngularXDrive:
-    serializedVersion: 4
+    serializedVersion: 3
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.4028233e+38
-    useAcceleration: 0
   m_AngularYZDrive:
-    serializedVersion: 4
+    serializedVersion: 3
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.4028233e+38
-    useAcceleration: 0
   m_SlerpDrive:
-    serializedVersion: 4
+    serializedVersion: 3
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.4028233e+38
-    useAcceleration: 0
   m_ProjectionMode: 0
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
@@ -335,18 +307,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2842668207621702419}
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0104926545, y: 0.029172594, z: 0.03858895}
+  serializedVersion: 2
+  m_Size: {x: -0.02, y: 0.03, z: 0.04}
   m_Center: {x: -0.0000000034924597, y: 0.0068911547, z: -0.008820305}
 --- !u!114 &7779246391595745434
 MonoBehaviour:
@@ -516,7 +480,7 @@ Transform:
   - {fileID: 8037004953519392228}
   - {fileID: 2711195463382473959}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5812991326296437821
 MonoBehaviour:

@@ -17,6 +17,12 @@ public class MovementScrript : MonoBehaviour
 
     [SerializeField] Transform[] tracks;
 
+    public Vector2 controllerValues;
+
+    public void ChangeControllerValues(Vector2 vec)
+    {
+        controllerValues = vec;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,11 +30,7 @@ public class MovementScrript : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     private void FixedUpdate()
     {
@@ -46,18 +48,19 @@ public class MovementScrript : MonoBehaviour
             }
         }
 
-        Vector3 force = forceVector.normalized * Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        Vector3 force = forceVector.normalized * controllerValues.y * speed * Time.deltaTime;
         if (rigidbody.velocity.magnitude < maxSpeed)
             rigidbody.AddForce(force);
         rigidbody.AddTorque(Vector3.Cross(Vector3.up, force) * torqueCompesation);
 
         float sign;
-        if (Input.GetAxis("Vertical") >= -0.01f) sign = 1;
+        //if (Input.GetAxis("Vertical") >= -0.01f) sign = 1;
+        if (controllerValues.y >= -0.01f) sign = 1;
         else sign = Mathf.Sign(Vector3.Dot(rigidbody.velocity,this.transform.forward));
 
         
         Debug.DrawLine(this.transform.position + this.transform.up, this.transform.position + this.transform.up + force * torqueCompesation);
-        Vector3 newAngularVelocity = new Vector3(rigidbody.angularVelocity.x, Input.GetAxis("Horizontal") * sign * angularSpeed, rigidbody.angularVelocity.z);
+        Vector3 newAngularVelocity = new Vector3(rigidbody.angularVelocity.x, controllerValues.x * sign * angularSpeed, rigidbody.angularVelocity.z);
         rigidbody.angularVelocity = newAngularVelocity;
     }
 }

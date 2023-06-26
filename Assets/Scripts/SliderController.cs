@@ -44,8 +44,6 @@ public class SliderController : MonoBehaviour
     public void Change()
     {
         float x = GetValue();
-
-        Debug.Log(x);
         onValueChange.Invoke(GetValue());
     }
 
