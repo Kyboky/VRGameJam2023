@@ -41,6 +41,7 @@ public class CameraControls : MonoBehaviour
 
     public void MoveCamera(Vector2 move)
     {
+        if (cameraMovement == null) return;
         cameraMovement.MoveCamera(move);
     }
 
