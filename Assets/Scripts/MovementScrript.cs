@@ -53,14 +53,7 @@ public class MovementScrript : MonoBehaviour
             rigidbody.AddForce(force);
         rigidbody.AddTorque(Vector3.Cross(Vector3.up, force) * torqueCompesation);
 
-        float sign;
-        //if (Input.GetAxis("Vertical") >= -0.01f) sign = 1;
-        if (controllerValues.y >= -0.01f) sign = 1;
-        else sign = Mathf.Sign(Vector3.Dot(rigidbody.velocity,this.transform.forward));
-
-        
-        Debug.DrawLine(this.transform.position + this.transform.up, this.transform.position + this.transform.up + force * torqueCompesation);
-        Vector3 newAngularVelocity = new Vector3(rigidbody.angularVelocity.x, controllerValues.x * sign * angularSpeed, rigidbody.angularVelocity.z);
+        Vector3 newAngularVelocity = new Vector3(rigidbody.angularVelocity.x, controllerValues.x * angularSpeed, rigidbody.angularVelocity.z);
         rigidbody.angularVelocity = newAngularVelocity;
     }
 }
