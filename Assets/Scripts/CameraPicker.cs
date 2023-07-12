@@ -1,52 +1,48 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using TMPro;
 
 public class CameraPicker : MonoBehaviour
 {
-    [SerializeField] TMP_Text cameraIndexText;
-    [SerializeField] TMP_Text signalStrengthText;
-    CameraControls cameraControlls;
+    [SerializeField] private TMP_Text _cameraIndexText;
+    [SerializeField] private TMP_Text _signalStrengthText;
+    private CameraControls _cameraControlls;
 
-    // Start is called before the first frame update
     void Start()
     {
-        cameraControlls = GetComponent<CameraControls>();
-
-        StartCoroutine("lateInit");
+        _cameraControlls = GetComponent<CameraControls>();
+        StartCoroutine("LateInit");
     }
 
-    IEnumerator lateInit()
+    IEnumerator LateInit()
     {
         yield return new WaitForSeconds(0.1f);
-        pickCamera(0.5132f);
+        PickCamera(0.5132f);
     }
 
-    public void pickCamera(float frequency)
+    public void PickCamera(float frequency)
     {
         if(frequency < 0.02f)
         {
-            cameraIndexText.text = "1";
-            signalStrengthText.text = "0.0";
+            _cameraIndexText.text = "1";
+            _signalStrengthText.text = "0.0";
             return;
         }
         else if (frequency > 0.98f)
         {
-            cameraIndexText.text = cameraControlls.cameras.Length.ToString();
-            signalStrengthText.text = "0.0";
+            _cameraIndexText.text = _cameraControlls.Cameras.Length.ToString();
+            _signalStrengthText.text = "0.0";
             return;
         }
         else
         {
-            float bandBetweenFrequencies = 1 / (float)cameraControlls.cameras.Length;
+            float bandBetweenFrequencies = 1 / (float)_cameraControlls.Cameras.Length;
             float cameraIndex = Mathf.Floor(frequency / bandBetweenFrequencies);
             float signalStrength = 1-Mathf.Abs(((frequency / bandBetweenFrequencies - cameraIndex) - 0.5f) *2);
-            cameraControlls.signalStrengthFrequency = signalStrength;
-            cameraControlls.ChangeCamera((int)cameraIndex);
-            cameraIndexText.text = (cameraIndex+1).ToString();
-            signalStrengthText.text = signalStrength.ToString();
+            _cameraControlls.SignalStrengthFrequency = signalStrength;
+            _cameraControlls.ChangeCamera((int)cameraIndex);
+            _cameraIndexText.text = (cameraIndex+1).ToString();
+            _signalStrengthText.text = signalStrength.ToString();
         }
         
     } 

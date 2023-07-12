@@ -1,57 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TankTracksController : MonoBehaviour
 {
-    [SerializeField] Transform[] rightWheels;
-    [SerializeField] Transform[] leftWheels;
+    [SerializeField] private Transform[] _rightWheels;
+    [SerializeField] private Transform[] _leftWheels;
+    [SerializeField] private Material _leftTrack;
+    [SerializeField] private Material _rightTrack;
+    [SerializeField] private float _rotSpeed = 278;
+    [SerializeField] private float _trackSpeed = 18.7f;
 
-    [SerializeField] Material leftTrack;
-    [SerializeField] Material rightTrack;
+    private float _leftTrackOffset = 0;
+    private float _rightTrackOffset = 0;
+    private Vector3 _lastPosition;
+    private Vector3 _lastDirtection;
 
-    float leftTrackOffset = 0;
-    float rightTrackOffset = 0;
-
-    [SerializeField] float rotSpeed;
-    [SerializeField] float trackSpeed;
-
-
-    Vector3 lastPosition;
-    Vector3 lastDirtection;
-    // Start is called before the first frame update
     void Start()
     {
-        lastPosition = this.transform.position;
-        lastDirtection = this.transform.forward;
+        _lastPosition = this.transform.position;
+        _lastDirtection = this.transform.forward;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Vector3 rotDir = Vector3.Cross(lastDirtection, this.transform.forward);
+        Vector3 rotDir = Vector3.Cross(_lastDirtection, this.transform.forward);
         float rotSign = rotDir.y < 0 ? -1 : 1;
 
         float rot = 0.395f * Mathf.Sin(rotDir.magnitude) * rotSign; //0.395 center to radius track
-        float offset = Vector3.Dot(lastDirtection,(this.transform.position - lastPosition));
+        float offset = Vector3.Dot(_lastDirtection,(this.transform.position - _lastPosition));
         float leftOffset = (rot + offset);
         float rightOffset = (-rot + offset);
 
-        foreach (Transform wheel in rightWheels)
+        foreach (Transform wheel in _rightWheels)
         {
-            wheel.Rotate(Vector3.right, rotSpeed * rightOffset);
+            wheel.Rotate(Vector3.right, _rotSpeed * rightOffset);
         }
-        foreach (Transform wheel in leftWheels)
+        foreach (Transform wheel in _leftWheels)
         {
-            wheel.Rotate(Vector3.right, rotSpeed * leftOffset);
+            wheel.Rotate(Vector3.right, _rotSpeed * leftOffset);
         }
 
-        leftTrackOffset += leftOffset * trackSpeed;
-        rightTrackOffset += rightOffset * trackSpeed;
-        leftTrack.SetFloat("_Offset", leftTrackOffset);
-        rightTrack.SetFloat("_Offset", rightTrackOffset);
+        _leftTrackOffset += leftOffset * _trackSpeed;
+        _rightTrackOffset += rightOffset * _trackSpeed;
+        _leftTrack.SetFloat("_Offset", _leftTrackOffset);
+        _rightTrack.SetFloat("_Offset", _rightTrackOffset);
 
-        lastPosition = this.transform.position;
-        lastDirtection = this.transform.forward;
+        _lastPosition = this.transform.position;
+        _lastDirtection = this.transform.forward;
     }
 }

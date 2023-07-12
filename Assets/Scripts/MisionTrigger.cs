@@ -1,34 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class MisionTrigger : MonoBehaviour
 {
-    [SerializeField] OpenCloseDoors doorsControll;
+    [SerializeField] private OpenCloseDoors _doorsControll;
+    private bool _isDone;
 
-    public UnityEvent missionComplete;
-    bool isDone;
+    public UnityEvent MissionComplete;
+    
     private void Start()
     {
-        isDone = false;
+        _isDone = false;
     }
 
     IEnumerator OpenDoorDelay()
     {
         yield return new WaitForSeconds(2);
-        missionComplete.Invoke();
+        MissionComplete?.Invoke();
         yield return new WaitForSeconds(10);
-        doorsControll.DoorOpenClose();
+        _doorsControll.DoorOpenClose();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isDone) return;
+        if (_isDone) return;
         if (other.CompareTag("Player"))
         {
-            isDone=true;
-            doorsControll.DoorOpenClose();
+            _isDone=true;
+            _doorsControll.DoorOpenClose();
             StartCoroutine(OpenDoorDelay());
         }
     }

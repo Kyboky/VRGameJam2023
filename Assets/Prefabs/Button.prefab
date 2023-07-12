@@ -281,10 +281,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bc5f1defd03e244bba05f7034b7715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualTarget: {fileID: 9091274465413925334}
-  localAxis: {x: 0, y: -1, z: 0}
-  resetSpeed: 5
-  followAngleThreshold: 45
+  VisualTarget: {fileID: 9091274465413925334}
+  LocalAxis: {x: 0, y: -1, z: 0}
+  ResetSpeed: 5
+  FollowAngleThreshold: 45
 --- !u!1 &7895238390623858939
 GameObject:
   m_ObjectHideFlags: 0

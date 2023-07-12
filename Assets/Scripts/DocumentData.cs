@@ -1,13 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
 public class DocumentData : MonoBehaviour
 {
-    [SerializeField] TMP_Text _text;
-
+    [SerializeField] private TMP_Text _text;
 
     public delegate void DocumentPickup();
     public event DocumentPickup OnDocumentPickup;
@@ -37,12 +34,11 @@ public class DocumentData : MonoBehaviour
             {
                 missingItems += string.Format("- {0} x {1}\n", dict[item], item);
             }
-            Debug.Log(missingItems);
             _text.text = missingItems;
         }
     }
     public void PickedUp()
     {
-        OnDocumentPickup.Invoke();
+        OnDocumentPickup?.Invoke();
     }
 }

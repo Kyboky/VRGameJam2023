@@ -1,41 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-
 public class ButtonFollowVisual : MonoBehaviour
 {
+    public Transform VisualTarget;
+    public Vector3 LocalAxis;
+    public float ResetSpeed = 5;
+    public float FollowAngleThreshold = 45;
+   
+    private bool _freeze = false;
+    private Vector3 _offset;
+    private Transform _pokeAttachTransform;
+    private Vector3 _initialLocalPos;
+    private XRBaseInteractable _interactable;
+    private bool _isFollowing = false;
 
-    public Transform visualTarget;
-    public Vector3 localAxis;
-    public float resetSpeed = 5;
-    public float followAngleThreshold = 45;
-    private bool freeze = false;
-
-    private Vector3 offset;
-    private Transform pokeAttachTransform;
-    private Vector3 initialLocalPos;
-    private XRBaseInteractable interactable;
-
-    private bool isFollowing = false;
-
-    // Start is called before the first frame update
     void Start()
     {
-        interactable = GetComponent<XRBaseInteractable>();
-        interactable.hoverEntered.AddListener(Follow);
-        interactable.hoverExited.AddListener(Reset);
-        interactable.selectEntered.AddListener(Freeze);
-        initialLocalPos = visualTarget.localPosition;
+        _interactable = GetComponent<XRBaseInteractable>();
+        _interactable.hoverEntered.AddListener(Follow);
+        _interactable.hoverExited.AddListener(Reset);
+        _interactable.selectEntered.AddListener(Freeze);
+        _initialLocalPos = VisualTarget.localPosition;
     }
 
     public void Reset(BaseInteractionEventArgs hover)
     {
         if (hover.interactorObject is XRPokeInteractor)
         {
-            freeze = false;
-            isFollowing = false;
+            _freeze = false;
+            _isFollowing = false;
         }
     }
 
@@ -45,14 +39,14 @@ public class ButtonFollowVisual : MonoBehaviour
         {
             XRPokeInteractor interactor = (XRPokeInteractor)hover.interactorObject;
             
-            pokeAttachTransform = interactor.attachTransform;
-            offset = visualTarget.position -pokeAttachTransform.position;
+            _pokeAttachTransform = interactor.attachTransform;
+            _offset = VisualTarget.position -_pokeAttachTransform.position;
 
-            float pokeAngle = Vector3.Angle(offset, visualTarget.TransformDirection(localAxis));
-            if(pokeAngle < followAngleThreshold)
+            float pokeAngle = Vector3.Angle(_offset, VisualTarget.TransformDirection(LocalAxis));
+            if(pokeAngle < FollowAngleThreshold)
             {
-                freeze = false;
-                isFollowing = true;
+                _freeze = false;
+                _isFollowing = true;
             }
 
         }
@@ -62,25 +56,24 @@ public class ButtonFollowVisual : MonoBehaviour
     {
         if (hover.interactorObject is XRPokeInteractor)
         {
-            freeze = true;
+            _freeze = true;
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (freeze) return;
+        if (_freeze) return;
 
-        if(isFollowing)
+        if(_isFollowing)
         {
-            Vector3 localTargetPosition = visualTarget.InverseTransformPoint(pokeAttachTransform.position + offset);
-            Vector3 constrainedLocalTargetPosition = Vector3.Project(localTargetPosition, localAxis);
+            Vector3 localTargetPosition = VisualTarget.InverseTransformPoint(_pokeAttachTransform.position + _offset);
+            Vector3 constrainedLocalTargetPosition = Vector3.Project(localTargetPosition, LocalAxis);
 
-            visualTarget.position = visualTarget.TransformPoint( constrainedLocalTargetPosition);
+            VisualTarget.position = VisualTarget.TransformPoint( constrainedLocalTargetPosition);
         }
         else
         {
-            visualTarget.localPosition = Vector3.Lerp(visualTarget.localPosition, initialLocalPos, Time.deltaTime * resetSpeed);
+            VisualTarget.localPosition = Vector3.Lerp(VisualTarget.localPosition, _initialLocalPos, Time.deltaTime * ResetSpeed);
         }
     }
 }

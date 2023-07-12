@@ -324,8 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfe1c926b0253341b82a0ccb342c829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftWing: {fileID: 644726155517849062}
-  rightWing: {fileID: 7985681386744685362}
+  _leftWing: {fileID: 644726155517849062}
+  _rightWing: {fileID: 7985681386744685362}
   _doorOpenOffset: 0.85
   _doorActionDuration: 0.2
   _initialStateOpen: 1

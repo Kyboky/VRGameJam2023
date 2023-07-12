@@ -1,20 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 
 public class JoystickController : MonoBehaviour
 {
-    [SerializeField] Transform handle;
-
-    [SerializeField] TMP_Text xAxis;
-    [SerializeField] TMP_Text zAxis;
-
-    [SerializeField] float minDeadzone;
-    public float xVal, zVal;
-
-    public bool activate;
+    [SerializeField] private Transform _handle;
+    [SerializeField] private TMP_Text _xAxis;
+    [SerializeField] private TMP_Text _zAxis;
+    [SerializeField] private float _minDeadzone;
+    
+    public float XVal, ZVal;
+    public bool Activate;
 
     public UnityEvent<Vector2> OnValueChange;
 
@@ -26,57 +22,55 @@ public class JoystickController : MonoBehaviour
     {
         if (!act)
         {
-            xVal = 0;
-            zVal = 0;
+            XVal = 0;
+            ZVal = 0;
             try
             {
-                xAxis.text = " 0.0000";
-                zAxis.text = " 0.0000";
+                _xAxis.text = " 0.0000";
+                _zAxis.text = " 0.0000";
             }
             catch { }
-            OnValueChange.Invoke(new Vector2(0,0));
+            OnValueChange?.Invoke(new Vector2(0,0));
         }
-        activate = act;
+        Activate = act;
     }
-    // Update is called once per frame
+
     void Update()
     {
-
-        if (activate)
+        if (Activate)
         {
-            Vector3 capPosition = handle.up;
-            xVal = DeadzoneCalculator (Vector3.Dot(capPosition, -this.transform.right) * 2.366f);
-            zVal = DeadzoneCalculator(Vector3.Dot(capPosition, -this.transform.forward) * 2.366f);
+            Vector3 capPosition = _handle.up;
+            XVal = DeadzoneCalculator (Vector3.Dot(capPosition, -this.transform.right) * 2.366f);
+            ZVal = DeadzoneCalculator(Vector3.Dot(capPosition, -this.transform.forward) * 2.366f);
             try
             {
-                if (xVal >= 0)
+                if (XVal >= 0)
                 {
-                    xAxis.text = " " + xVal.ToString("0.0000");
+                    _xAxis.text = " " + XVal.ToString("0.0000");
                 }
                 else
                 {
-                    xAxis.text = xVal.ToString("0.0000");
+                    _xAxis.text = XVal.ToString("0.0000");
                 }
-                if (zVal >= 0)
+                if (ZVal >= 0)
                 {
-                    zAxis.text = " " + zVal.ToString("0.0000");
+                    _zAxis.text = " " + ZVal.ToString("0.0000");
                 }
                 else
                 {
-                    zAxis.text = zVal.ToString("0.0000");
+                    _zAxis.text = ZVal.ToString("0.0000");
                 }
             }
             catch { }
            
-            OnValueChange.Invoke(new Vector2(xVal, zVal));
-        }
-        
+            OnValueChange?.Invoke(new Vector2(XVal, ZVal));
+        }   
     }
 
     float DeadzoneCalculator(float value)
     {
         float sign = Mathf.Sign(value);
-        return sign * Mathf.InverseLerp(minDeadzone, 1, Mathf.Abs(value));
+        return sign * Mathf.InverseLerp(_minDeadzone, 1, Mathf.Abs(value));
     }
 
 }

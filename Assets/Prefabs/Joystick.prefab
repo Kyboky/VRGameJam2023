@@ -587,8 +587,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  leftAttachTransform: {fileID: 2071231235022144378}
-  rightAttachTransform: {fileID: 2071231235790842306}
+  LeftAttachTransform: {fileID: 2071231235022144378}
+  RightAttachTransform: {fileID: 2071231235790842306}
 --- !u!135 &7043849233448592933
 SphereCollider:
   m_ObjectHideFlags: 0

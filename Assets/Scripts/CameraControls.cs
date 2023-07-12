@@ -1,81 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControls : MonoBehaviour
 {
-    [SerializeField] RenderTexture renderTexture;
-    public Camera[] cameras;
-    [SerializeField] float maxDistance;
-    [SerializeField] float range;
-    [SerializeField] Material screenMaterial;
-    [SerializeField] bool isFrequencyStrength;
+    public Camera[] Cameras;
+    public GameObject ActiveCamera;
+    public float SignalStrengthFrequency;
 
-    CameraMovement cameraMovement;
+    [SerializeField] private RenderTexture _renderTexture;
+    [SerializeField] private float _maxDistance;
+    [SerializeField] private float _range;
+    [SerializeField] private Material _screenMaterial;
+    [SerializeField] private bool _isFrequencyStrength;
 
-    public GameObject activeCamera;
-
-    public float signalStrengthFrequency;
-
-
-
-    int currentCamera = 0;
+    private CameraMovement _cameraMovement;
+    private int _currentCamera = 0;
 
     public void NextCamera()
     {
-        cameras[currentCamera % cameras.Length].gameObject.SetActive(false);
-        currentCamera++;
-        cameras[currentCamera % cameras.Length].gameObject.SetActive(true);
-        activeCamera = cameras[currentCamera % cameras.Length].gameObject;
+        Cameras[_currentCamera % Cameras.Length].gameObject.SetActive(false);
+        _currentCamera++;
+        Cameras[_currentCamera % Cameras.Length].gameObject.SetActive(true);
+        ActiveCamera = Cameras[_currentCamera % Cameras.Length].gameObject;
     }
 
     public void ChangeCamera(int cameraIndex)
     {
-        if (cameraIndex == currentCamera) return;
-        cameras[currentCamera].gameObject.SetActive(false);
-        currentCamera = cameraIndex;
-        cameras[cameraIndex].gameObject.SetActive(true);
-        activeCamera = cameras[cameraIndex].gameObject;
-        cameraMovement = activeCamera.transform.parent.GetComponent<CameraMovement>();
+        if (cameraIndex == _currentCamera) return;
+        Cameras[_currentCamera].gameObject.SetActive(false);
+        _currentCamera = cameraIndex;
+        Cameras[cameraIndex].gameObject.SetActive(true);
+        ActiveCamera = Cameras[cameraIndex].gameObject;
+        _cameraMovement = ActiveCamera.transform.parent.GetComponent<CameraMovement>();
     }
 
     public void MoveCamera(Vector2 move)
     {
-        if (cameraMovement == null) return;
-        cameraMovement.MoveCamera(move);
+        if (_cameraMovement == null) return;
+        _cameraMovement.MoveCamera(move);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        signalStrengthFrequency = 1;
-        int currentCamera = 0;
-        foreach (var camera in cameras)
+        SignalStrengthFrequency = 1;
+        foreach (var camera in Cameras)
         {
             camera.gameObject.SetActive(false);
         }
-        cameras[0].gameObject.SetActive(true);
-        activeCamera = cameras[0].gameObject;
+        Cameras[0].gameObject.SetActive(true);
+        ActiveCamera = Cameras[0].gameObject;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    ChangeCamera();
-        //}
-
         float signalStrength;
-        float distance = Vector3.Distance(this.transform.position, cameras[currentCamera % cameras.Length].transform.position);
-        if (isFrequencyStrength)
+        float distance = Vector3.Distance(this.transform.position, Cameras[_currentCamera % Cameras.Length].transform.position);
+        if (_isFrequencyStrength)
         {
-            signalStrength = signalStrengthFrequency;
+            signalStrength = SignalStrengthFrequency;
         }
         else
         {
-            signalStrength = 1 - Mathf.InverseLerp(range, maxDistance, Mathf.Clamp(distance, range, maxDistance));
+            signalStrength = 1 - Mathf.InverseLerp(_range, _maxDistance, Mathf.Clamp(distance, _range, _maxDistance));
         }
-        screenMaterial.SetFloat("_SignalStrength", signalStrength);
+        _screenMaterial.SetFloat("_SignalStrength", signalStrength);
     }
 }

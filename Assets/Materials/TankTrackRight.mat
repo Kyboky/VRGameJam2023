@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TankTrackLeft
+  m_Name: TankTrackRight
   m_Shader: {fileID: -6465566751694194690, guid: 512997ce75e3aab42b2de0f2b1476bfd,
     type: 3}
   m_ValidKeywords: []
@@ -113,7 +113,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Offset: 751.73895
+    - _Offset: -0.001250852
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0

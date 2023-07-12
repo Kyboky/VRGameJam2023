@@ -130,9 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e2f92589f477742bd549d8930977be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraRotationSpeed: 0.5
-  xLimit: {x: 10, y: 60}
-  yLimit: {x: 90, y: 270}
+  _cameraRotationSpeed: 0.5
+  _xLimit: {x: 10, y: 60}
+  _yLimit: {x: 90, y: 270}
 --- !u!1 &2068927195035956150
 GameObject:
   m_ObjectHideFlags: 0

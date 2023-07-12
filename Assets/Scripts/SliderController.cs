@@ -1,41 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class SliderController : MonoBehaviour
 {
-    [SerializeField] float minValue;
-    [SerializeField] float maxValue;
-    [SerializeField] XRGrabInteractable interactable;
-    [SerializeField] ConfigurableJoint joint;
+    [SerializeField] private XRGrabInteractable _interactable;
+    [SerializeField] private ConfigurableJoint _joint;
+    private bool _isActive;
 
-    Vector3 startPosition;
-    bool isActive;
+    public UnityEvent<float> OnValueChange;
 
-    public UnityEvent<float> onValueChange;
-    // Start is called before the first frame update
     void Start()
     {
-
-        isActive = false;
-        startPosition = transform.position;
-        interactable.selectEntered.AddListener(Activate);
-        interactable.selectExited.AddListener(Deactivate);
+        _isActive = false;
+        _interactable.selectEntered.AddListener(Activate);
+        _interactable.selectExited.AddListener(Deactivate);
     }
     public void Activate(SelectEnterEventArgs args)
     {
-        isActive = true;
+        _isActive = true;
     }
     public void Deactivate(SelectExitEventArgs args)
     {
-        isActive = false;
+        _isActive = false;
     }
 
     private void Update()
     {
-        if (isActive)
+        if (_isActive)
         {
             Change();
         }
@@ -43,14 +35,12 @@ public class SliderController : MonoBehaviour
     public void Change()
     {
         float x = GetValue();
-        onValueChange.Invoke(GetValue());
+        OnValueChange?.Invoke(GetValue());
     }
 
     private float GetValue()
     {
-        float value = Vector3.Dot(joint.transform.position - this.transform.position, -this.transform.right) / 0.112f / 2 + 0.5f;
-        
+        float value = Vector3.Dot(_joint.transform.position - this.transform.position, -this.transform.right) / 0.112f / 2 + 0.5f;
         return value;
     }
-
 }

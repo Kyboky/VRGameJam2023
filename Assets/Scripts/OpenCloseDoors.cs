@@ -1,34 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
 public class OpenCloseDoors : MonoBehaviour
 {
-    bool _isOpened;
+    [SerializeField] private Transform _leftWing;
+    [SerializeField] private Transform _rightWing;
+    [SerializeField] private float _doorOpenOffset;
+    [SerializeField] private float _doorActionDuration;
+    [SerializeField] private bool _initialStateOpen;
 
-    [SerializeField] Transform leftWing;
-    [SerializeField] Transform rightWing;
+    private bool _isOpened;
 
-    [SerializeField] float _doorOpenOffset;
-    [SerializeField] float _doorActionDuration;
-
-    [SerializeField] bool _initialStateOpen;
-
-    // Start is called before the first frame update
     void Start()
     {
         if (_initialStateOpen)
         {
             _isOpened = true;
-            leftWing.localPosition = Vector3.right * _doorOpenOffset;
-            rightWing.localPosition = Vector3.left * _doorOpenOffset;
+            _leftWing.localPosition = Vector3.right * _doorOpenOffset;
+            _rightWing.localPosition = Vector3.left * _doorOpenOffset;
         }
         else
         {
             _isOpened = false;
-            leftWing.localPosition = Vector3.zero;
-            rightWing.localPosition = Vector3.zero;
+            _leftWing.localPosition = Vector3.zero;
+            _rightWing.localPosition = Vector3.zero;
         }
         
     }
@@ -38,15 +33,14 @@ public class OpenCloseDoors : MonoBehaviour
         if (_isOpened)
         {
             _isOpened = false;
-            leftWing.DOLocalMoveX(0, _doorActionDuration);
-            rightWing.DOLocalMoveX(0, _doorActionDuration);
+            _leftWing.DOLocalMoveX(0, _doorActionDuration);
+            _rightWing.DOLocalMoveX(0, _doorActionDuration);
         }
         else
         {
             _isOpened = true;
-            leftWing.DOLocalMoveX(_doorOpenOffset, _doorActionDuration);
-            rightWing.DOLocalMoveX(-_doorOpenOffset, _doorActionDuration);
+            _leftWing.DOLocalMoveX(_doorOpenOffset, _doorActionDuration);
+            _rightWing.DOLocalMoveX(-_doorOpenOffset, _doorActionDuration);
         }
     }
-
 }
