@@ -30,7 +30,6 @@ public class MisionTrigger : MonoBehaviour
             isDone=true;
             doorsControll.DoorOpenClose();
             StartCoroutine(OpenDoorDelay());
-            
         }
     }
 }

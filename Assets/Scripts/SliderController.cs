@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
-using static UnityEngine.Rendering.DebugUI;
 
 public class SliderController : MonoBehaviour
 {

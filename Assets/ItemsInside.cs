@@ -1,6 +1,6 @@
+
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemsInside : MonoBehaviour
@@ -15,7 +15,9 @@ public class ItemsInside : MonoBehaviour
             type = t;
         }
     }
-    
+    [SerializeField] Printer printer;
+    [SerializeField] GameObject finishedObj;
+    [SerializeField] GameObject nextMission;
     List<ItemType> items = new List<ItemType>();
     [SerializeField] List<string> neededItems = new List<string>();
 
@@ -36,7 +38,6 @@ public class ItemsInside : MonoBehaviour
         {
             items.Add(new ItemType(other.gameObject, "Tools"));
         }
-        PrintObjectNumber();
     }
 
     private void OnTriggerExit(Collider other)
@@ -49,7 +50,6 @@ public class ItemsInside : MonoBehaviour
                 break;
             }
         }
-        PrintObjectNumber();
     }
 
     public void RemoveObjects()
@@ -67,19 +67,21 @@ public class ItemsInside : MonoBehaviour
                 }
             }
         }
-        if(neededItems.Count == 0)
+        GameObject go = Instantiate(finishedObj);
+        if (neededItems.Count == 0)
         {
-            Debug.Log("Mission Succesful");
+            go.GetComponent<DocumentData>().ChangeData(neededItems);
         }
         else
         {
-            Debug.Log("Missiion Failed");
+            go.GetComponent<DocumentData>().ChangeData(neededItems);
         }
-    }
-
-    void PrintObjectNumber()
-    {
-        Debug.Log(items.Count);
+        printer.AddDocumentToQueue(go);
+        if (nextMission)
+        {
+            printer.AddDocumentToQueue(nextMission);
+        }
+        printer.PrintDocument();
     }
 
 }

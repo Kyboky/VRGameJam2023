@@ -42,7 +42,7 @@ Material:
     - _Brightness: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SignalStrength: 0.15839964
+    - _SignalStrength: 0.8115132
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &6575525888828738588
