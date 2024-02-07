@@ -4,7 +4,7 @@ This project was made as a part of a VRGameJam 2023 on itch.io (https://itch.io/
 
 Builds can be found on itch.io.
 
-It is a simple game where you have to deliver some items by a mobile robot. 
+It is a simple game where you have to deliver some items by a mobile robot.
 
 ## Controls
 
